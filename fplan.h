@@ -39,3 +39,55 @@ struct Module_Info{
 
 typedef vector<Module_Info> Modules_Info;
 
+class FPlan{
+  public:
+    FPlan(float calpha);
+    //read file and parsing
+    void read(const char*,const char *,const char *);
+    virtual void init()         =0;
+    virtual void packing();
+    virtual void perturb()      =0;
+    virtual void keep_sol()     =0;
+    virtual void keep_best      =0;
+    virtual void recover()      =0;
+    virtual void recover_best() =0;
+    //basic function
+    int    size()          { return modules_N;  }
+    double getTotalArea()  { return TotalArea;  }
+    double getArea()       { return Area;       }
+    int    getWireLength() { return WireLength; }
+    double getWidth()      { return Width;      }
+    double getHeight()     { return Height;     }
+    float  getDeadSpace();
+
+    //list information
+    void list_information();
+    void show_modules();
+    void normalize_cost(int);
+    void set_time(double);
+    
+  protected:
+    void clear();
+    double calcWireLength();
+    void scaleIOPad();
+    
+    //parameter
+    double Area;
+    double Width,Height;
+    int WireLength;
+    double TotalArea;
+    //module number
+    int modules_N;
+    Modules modules;
+    Module root_module;
+    Modules_Infor modules_info;
+    Nets network;
+    double norm_area,norm_wire;
+    float cost_alpha;
+    double time;
+    vector<vector<int>> connection;
+    int max_Height,max_Width;
+  private:
+    map<string,int> net_table;
+    string filename;
+};
