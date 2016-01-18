@@ -11,13 +11,6 @@
 const int NIL = -1;
 typedef bool DIR;
 const bool H=0,V=1;
-struct Node{
-  int id;
-  vector<int> H_child,V_clild,H_parent,V_parent;
-  bool rotate;
-  int long_width, long_height;
-}
-
 class Spair: public FPlain{
   public:
     Spair(float calpha=1):FPlan(calpha){}
@@ -42,14 +35,12 @@ class Spair: public FPlain{
     //Auxilary function
     void add_changed_nodes(int n);
     
-    void single_swap(Node &n1,Node &n2);
+    void single_swap(int n1,int n2,int i);
     void double_swap(int n1,int n2);
-    
-    Node start,term;
-    vecotr<Node> hi_nodes,lo_nodes; 
+    vecotr<int> hi_nodes,lo_nodes; 
   private:
     struct Solution{
-      vector<Node> hi_nodes,lo_nodes;
+      vector<int> hi_nodes,lo_nodes;
       double cost;
       Solution() {cost = 1;}
       void clear() { cost = 1, hi_nodes.clear(),lo_nodes.clear();}
@@ -59,7 +50,7 @@ class Spair: public FPlain{
     
     Solution best_sol,last_sol;
     //for partial recover
-    vector<Node> changed_hi_nodes,changed_lo_nodes;
+    vector<int> changed_hi_nodes,changed_lo_nodes;
 }
 //--------------------------------------------------------------------------
 #endif

@@ -22,11 +22,13 @@ void Spair::init(){
   hi_nodes.resize(modules_N);
   lo_nodes.resize(modules_N);
   for(int i=0;i < modules_N;i++){
-    hi_nodes[i].id = i;
-    lo_nodes[i].id = i;   
+    hi_nodes[i] = i;
+    lo_nodes[i] = i;   
+    modules_info[i].V_child.clear();
+    modules_info[i].H_child.clear();
+    modules_info[i].V_parent.clear();
+    modules_info[i].H_parent.clear();
   }
-  start.id=-3;
-  term.id=-4;  
   best_sol.clear();
   last_sol.clear();
   clear();
@@ -67,23 +69,11 @@ void Spair::packing(){
   double max_x=-1,max_y=-1;
   //child parent initialize
   for(int i=0;i<hi_nodes.size();i++){
-    hi_nodes[i].H_child.clear();
-    hi_nodes[i].V_child.clear();
-    hi_nodes[i].H_parent.clear();
-    hi_nodes[i].H_parent.clear();
-    lo_nodes[i].H_child.clear();
-    lo_nodes[i].V_child.clear();
-    lo_nodes[i].H_parent.clear();
-    lo_nodes[i].H_parent.clear();
+    modules_info[i].H_child.clear();
+    modules_info[i].V_child.clear();
+    modules_info[i].H_parent.clear();
+    modules_info[i].H_parent.clear();
   }
-  start.H_child.clear();
-  start.V_child.clear();
-  start.H_parent.clear();
-  start.H_parent.clear();
-  term.H_child.clear();
-  term.V_child.clear();
-  term.H_parent.clear();
-  term.H_parent.clear();
   //H_child H_parent
   for(int i=0;i<hi_nodes.size();i++)
   {
@@ -219,7 +209,7 @@ void Spair::perturb(){
   int p,n;
   n = rand()%modules_N;
   if(rotate_rate > rand_01()){
-    lo_nodes[n].rotate=!lo_nodes[n].rotate;
+    modules_info[n].rotate=!modules_info[n].rotate;
   }
   else{
     if(single_swap_rate>rand_01()){
@@ -227,9 +217,9 @@ void Spair::perturb(){
         p = rand()%modules_N;
       }while(n==p)
       if(rand()%2==0){
-        single_swap(hi_nodes[n],hi_nodes[p]);
+        single_swap(n,p,0);
       }else{
-        single_swap(lo_nodes[n],lo_nodes[p]);
+        single_swap(n,p,1);
       }
     }else{
       do{
@@ -240,16 +230,14 @@ void Spair::perturb(){
   }
 }
 
-void single_swap(Node &n1,Node &n2){
-  swap(n1.id,n2.id);
-  swap(n1.V_parent,n2.V_parent);
-  swap(n1.H_parent,n2.H_parent);
-  swap(n1.rotate,n2.rotate);
-  swap(n1.H_child,n2.H_child);
-  swap(n1.V_child,n2.V_child);
+void Spair::single_swap(int n1,int n2,int i){
+  if(i==0)
+    swap(lo_nodes[n1],lo_nodes[n2]);
+  else
+    swap(hi_nodes[n1],hi_nodes[n2]);
 }
 
-void double_swap(int n1,int n2){
-  single_swap(lo_nodes[n],lo_nodes[p]);
-  single_swap(hi_nodes[n],hi_nodes[p]);
+void Spair::double_swap(int n1,int n2){
+  single_swap(n,p,1);
+  single_swap(n,p,0);
 }

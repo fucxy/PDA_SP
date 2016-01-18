@@ -35,6 +35,7 @@ struct Module_Info{
   bool rotate;
   int x,y;
   int rx,ry;
+  vector<int> H_child,V_child,H_parent,V_parent;
 };
 
 typedef vector<Module_Info> Modules_Info;
