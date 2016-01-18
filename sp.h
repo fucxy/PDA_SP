@@ -10,7 +10,7 @@
 //--------------------------------------------------------------------------
 const int NIL = -1;
 typedef bool DIR;
-cnst bool H=0,V=1;
+const bool H=0,V=1;
 struct Node{
   int id,parent;
   vector<int> H_child,V_clild;
@@ -41,7 +41,7 @@ class Spair: public FPlain{
     //Auxilary function
     void add_changed_nodes(int n);
     
-    void single_swap(Node &n1,Node &n2,DIR dir);
+    void single_swap(Node &n1,Node &n2);
     void double_swap(Node &n1,Node &n2);
     
     Node V_start,H_start,V_term,H_term;

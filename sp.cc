@@ -9,7 +9,7 @@
 using namespace std;
 //--------------------------------------------------------------------------
 float rotate_rate = 0.3;
-float swap_rate = 0.5;
+float single_swap_rate = 0.5;
 
 //--------------------------------------------------------------------------
 
@@ -113,10 +113,31 @@ void Spair::recover(Solution &sol){
 //--------------------------------------------------------------------------
 //SA operation
 void Spair::perturb(){
-  int p,;
+  int p,n;
+  n = rand()%modules_N;
+  if(rotate_rate > rand_01()){
+    lo_nodes[n].rotate=!lo_nodes[n].rotate;
+  }
+  else{
+    if(single_swap_rate>rand_01()){
+      do{ 
+        p = rand()%modules_N;
+      }while(n==p)
+      if(rand()%2==0){
+        single_swap(hi_nodes[n],lo_nodes[p]);
+      }else{
+        single_swap(lo_nodes[n],lo_nodes[p]);
+      }
+    }else{
+      do{
+        p = rand()%modules_N;
+      }while(n==p)
+      double_swap(hi_nodes[n],lo_nodes[p]);
+    }
+  }
 }
 
-void single_swap(Node &n1,Node &n2,DIR dir){
+void single_swap(Node &n1,Node &n2){
 }
 
 void double_swap(Node &n1,Node &n2){
