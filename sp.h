@@ -34,16 +34,14 @@ class Spair: public FPlain{
   protected:
   
     void show_pair();
-    void place_module(int mod,int abut,bool is_left=true);
+    void place_module(int mod_id);
     bool legal();
     void clear();
     
     //Auxilary function
-    void wire_noes(int parent,int child,DIR edge);
-    int child(int node,DIR d);
     void add_changed_nodes(int n);
     
-    void single_swap(Node &n1,Node &n2);
+    void single_swap(Node &n1,Node &n2,DIR dir);
     void double_swap(Node &n1,Node &n2);
     
     Node V_start,H_start,V_term,H_term;
@@ -57,7 +55,6 @@ class Spair: public FPlain{
     }
     void get_solution(Solution &sol);
     void recover(Solution &sol);
-    void recover_partail();
     
     Solution best_sol,last_sol;
     //for partial recover

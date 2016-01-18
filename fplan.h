@@ -80,7 +80,7 @@ class FPlan{
     int modules_N;
     Modules modules;
     Module root_module;
-    Modules_Infor modules_info;
+    Modules_Info modules_info;
     Nets network;
     double norm_area,norm_wire;
     float cost_alpha;
