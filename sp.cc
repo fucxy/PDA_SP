@@ -25,6 +25,8 @@ void Spair::init(){
     hi_nodes[i].id = i;
     lo_nodes[i].id = i;   
   }
+  start.id=-3;
+  term.id=-4;  
   best_sol.clear();
   last_sol.clear();
   clear();
@@ -74,6 +76,14 @@ void Spair::packing(){
     lo_nodes[i].H_parent.clear();
     lo_nodes[i].H_parent.clear();
   }
+  start.H_child.clear();
+  start.V_child.clear();
+  start.H_parent.clear();
+  start.H_parent.clear();
+  term.H_child.clear();
+  term.V_child.clear();
+  term.H_parent.clear();
+  term.H_parent.clear();
   //H_child H_parent
   for(int i=0;i<hi_nodes.size();i++)
   {

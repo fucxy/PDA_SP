@@ -44,7 +44,7 @@ class Spair: public FPlain{
     void single_swap(Node &n1,Node &n2);
     void double_swap(int n1,int n2);
     
-    Node V_start,H_start,V_term,H_term;
+    Node start,term;
     vecotr<Node> hi_nodes,lo_nodes; 
   private:
     struct Solution{
