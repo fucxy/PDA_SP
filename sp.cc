@@ -54,7 +54,20 @@ void Spair::show_pair(){
 //get Outline 
 void Spair::packing(){
   double max_x=-1,max_y=-1;
-  //Add code
+  //child parent initialize
+  for(int i=0;i<hi_nodes.size();i++){
+    hi_nodes[i].H_child.clear();
+    hi_nodes[i].V_child.clear();
+    hi_nodes[i].H_parent.clear();
+    hi_nodes[i].H_parent.clear();
+    lo_nodes[i].H_child.clear();
+    lo_nodes[i].V_child.clear();
+    lo_nodes[i].H_parent.clear();
+    lo_nodes[i].H_parent.clear();
+  }
+  //H_child H_parent
+  
+  //V_child V_parent
   //place_module XXXX
   Width  = max_x;
   Height = max_y;
