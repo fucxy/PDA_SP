@@ -19,22 +19,35 @@ We will decribe how we made it!
 >The union of the two loci of module i forms the positive locus of module i. 
 >Negative loci can be obtained similar to the positive loci.
 >The difference is that a negative locus is the union of the up-left locus and down-right locus.
+> 
+>(Г+ , Г-) = (124536, 326145)
+
+![alt tag](https://raw.githubusercontent.com/fucxy/PDA_SP/master/image/sp1.png)
+
 
 ##From a sequence pair to its floorplan
 
+>(Г+ , Г-) = (124536, 326145)
 
+![alt tag](https://raw.githubusercontent.com/fucxy/PDA_SP/master/image/sp2.png)
 
 >Rule 1 (horizontal constraint): module i is left to module j if i appears before j in both Г+ & Г- (...i... j ... , ...i... j ...). 
 >Rule 2 (vertical constraint): module i is below module j if i appears after j in Г+ and i appears before j in Г- (...j... i ... , ...i... j ...).
 
-##Example
+#Example
 
-(Г+ , Г-) = (124536, 326145)
+#(Г+ , Г-) = (124536, 326145)
+
+![alt tag](https://raw.githubusercontent.com/fucxy/PDA_SP/master/image/sp3.png)
 
 ##Longest path
 
 >Floorplan width = 17. (s->3->6->t)
 >Floorplan height  = 17. (s->6->5->t)
+
+![alt tag](https://raw.githubusercontent.com/fucxy/PDA_SP/master/image/sp3.png)
+
+![alt tag](https://raw.githubusercontent.com/fucxy/PDA_SP/master/image/sp4.png)
 
 ##Operations
 
@@ -42,9 +55,11 @@ We will decribe how we made it!
 >Op2: Swap two module names in only one sequence. 
 >Op3: Swap two module names in both sequences.
 
+![alt tag](https://raw.githubusercontent.com/fucxy/PDA_SP/master/image/sp5.png)
+
 ##Comparison
 
-
+![alt tag](https://raw.githubusercontent.com/fucxy/PDA_SP/master/image/sp6.png)
 
 ##Reference
 
