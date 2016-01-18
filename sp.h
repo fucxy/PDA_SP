@@ -12,8 +12,8 @@ const int NIL = -1;
 typedef bool DIR;
 const bool H=0,V=1;
 struct Node{
-  int id,parent;
-  vector<int> H_child,V_clild;
+  int id;
+  vector<int> H_child,V_clild,H_parent,V_parent;
   bool rotate;
 }
 
