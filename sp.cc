@@ -44,7 +44,16 @@ void Spair::testing(){
 
 //display pair
 void Spair::show_pair(){
-
+  cout<<"hi_nodes:";
+  for(int i;i<hi_nodes.size();i++){
+    cout<<hi_node[i].id<<" ";
+  }
+  cout<<endl;
+  cout<<"lo_nodes:";
+  for(int i;i<lo_nodes.size();i++){
+    cout<<lo_node[i].id<<" ";
+  }
+  cout<<endl;
 }
 
 //--------------------------------------------------------------------------
