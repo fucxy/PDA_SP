@@ -15,6 +15,7 @@ struct Node{
   int id;
   vector<int> H_child,V_clild,H_parent,V_parent;
   bool rotate;
+  int long_width, long_height;
 }
 
 class Spair: public FPlain{
