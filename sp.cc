@@ -134,7 +134,30 @@ void Spair::packing(){
   		}
   	}
   }
-
+  
+  for(int i=0;i<hi_nodes.size();i++)
+  {
+  	if(hi_nodes[i].H_parent.size()==0)
+  	{
+  		start.H_child.push_back(hi_nodes[i].id);
+  		hi_nodes[i].H_parent.push_back(start.id);
+  	}
+  	if(hi_nodes[i].V_parent.size()==0)
+  	{
+  		start.V_child.push_back(hi_nodes[i].id);
+  		hi_nodes[i].V_parent.push_back(start.id);
+  	}
+  	if(hi_nodes[i].H_child.size()==0)
+  	{
+  		hi_nodes[i].H_child.push_back(term.id);
+  		term.H_parent.push_back(hi_nodes[i].id);
+  	}
+  	if(hi_nodes[i].V_child.size()==0)
+  	{
+  		hi_nodes[i].V_child.push_back(term.id);
+  		term.V_parent.push_back(hi_nodes[i].id);
+  	}
+  }
   //place_module XXXX
   Width  = max_x;
   Height = max_y;
