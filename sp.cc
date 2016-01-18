@@ -124,7 +124,7 @@ void Spair::perturb(){
         p = rand()%modules_N;
       }while(n==p)
       if(rand()%2==0){
-        single_swap(hi_nodes[n],lo_nodes[p]);
+        single_swap(hi_nodes[n],hi_nodes[p]);
       }else{
         single_swap(lo_nodes[n],lo_nodes[p]);
       }
@@ -132,7 +132,7 @@ void Spair::perturb(){
       do{
         p = rand()%modules_N;
       }while(n==p)
-      double_swap(hi_nodes[n],lo_nodes[p]);
+      double_swap(n,p);
     }
   }
 }
@@ -140,5 +140,7 @@ void Spair::perturb(){
 void single_swap(Node &n1,Node &n2){
 }
 
-void double_swap(Node &n1,Node &n2){
+void double_swap(int n1,int n2){
+  single_swap(lo_nodes[n],lo_nodes[p]);
+  single_swap(hi_nodes[n],hi_nodes[p]);
 }

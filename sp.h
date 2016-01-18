@@ -42,7 +42,7 @@ class Spair: public FPlain{
     void add_changed_nodes(int n);
     
     void single_swap(Node &n1,Node &n2);
-    void double_swap(Node &n1,Node &n2);
+    void double_swap(int n1,int n2);
     
     Node V_start,H_start,V_term,H_term;
     vecotr<Node> hi_nodes,lo_nodes; 
