@@ -34,9 +34,7 @@ We will decribe how we made it!
 >Rule 1 (horizontal constraint): module i is left to module j if i appears before j in both Г+ & Г- (...i... j ... , ...i... j ...). 
 >Rule 2 (vertical constraint): module i is below module j if i appears after j in Г+ and i appears before j in Г- (...j... i ... , ...i... j ...).
 
-#Example
-
-#(Г+ , Г-) = (124536, 326145)
+#Example :(Г+ , Г-) = (124536, 326145)
 
 ![alt tag](https://raw.githubusercontent.com/fucxy/PDA_SP/master/image/sp3.png)
 
