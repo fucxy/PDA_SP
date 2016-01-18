@@ -148,6 +148,32 @@ void Spair::packing(){
   		term.V_parent.push_back(hi_nodes[i].id);
   	}
   }
+  
+  
+  for(int i=0;i<start.H_child.size();i++)
+  {
+  	for(int j=0;j<hi_nodes.size();j++)
+  	{
+  		if(start.H_child[i].id==hi_nodes[j].id)
+  		{
+  			hi_nodes[j].long_width = 0+Module[H_candidate[i].id].width;
+  			break;
+  		}
+  	}
+  }
+  
+  for(int i=0;i<start.V_child.size();i++)
+  {
+  	for(int j=0;j<hi_nodes.size();j++)
+  	{
+  		if(start.V_child[i].id==hi_nodes[j].id)
+  		{
+  			hi_nodes[j].long_height = 0+Module[H_candidate[i].id].height;
+  			break;
+  		}
+  	}
+  }
+  
   //place_module XXXX
   Width  = max_x;
   Height = max_y;
