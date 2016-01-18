@@ -138,6 +138,11 @@ void Spair::perturb(){
 }
 
 void single_swap(Node &n1,Node &n2){
+  swap(n1.id,n2.id);
+  swap(n1.parent,n2.parent);
+  swap(n1.rotate,n2.rotate);
+  swap(n1.H_child,n2.H_child);
+  swap(n1.V_child,n2.V_child);
 }
 
 void double_swap(int n1,int n2){
