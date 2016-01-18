@@ -66,8 +66,56 @@ void Spair::packing(){
     lo_nodes[i].H_parent.clear();
   }
   //H_child H_parent
-  
+  for(int i=0;i<hi_nodes.size();i++)
+  {
+  	int lo_index;
+  	for(int j=0;j<lo_nodes.size();j++)
+  	{
+  		if(lo_nodes[j].id==hi_nodes[i].id)
+  		{
+  			lo_index = j;
+  			break;
+  		}
+  	}
+  	for(int j=i+1;j<hi_nodes.size();j++)
+  	{
+  		for(int k=lo_index+1;k<lo_nodes.size();k++)
+  		{
+  			if(hi_nodes[j].id==lo_nodes[k].id)
+  			{
+  				hi_nodes[i].H_child.push_back(hi_nodes[j].id);
+  				hi_nodes[j].H_parent.push_back(hi_nodes[i].id);
+  				break;
+  			}
+  		}
+  	}
+  }
   //V_child V_parent
+  for(int i=0;i<hi_nodes.size();i++)
+  {
+  	int lo_index;
+  	for(int j=0;j<lo_nodes.size();j++)
+  	{
+  		if(lo_nodes[j].id==hi_nodes[i].id)
+  		{
+  			lo_index = j;
+  			break;
+  		}
+  	}
+  	for(int j=i+1;j<hi_nodes.size();j++)
+  	{
+  		for(int k=lo_index-1;k>=0;k--)
+  		{
+  			if(hi_nodes[j].id==lo_nodes[k].id)
+  			{
+  				hi_nodes[i].V_child.push_back(hi_nodes[j].id);
+  				hi_nodes[j].V_parent.push_back(hi_nodes[i].id);
+  				break;
+  			}
+  		}
+  	}
+  }
+
   //place_module XXXX
   Width  = max_x;
   Height = max_y;
