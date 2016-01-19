@@ -52,6 +52,7 @@ class FPlan{
     virtual void keep_best()    =0;
     virtual void recover()      =0;
     virtual void recover_best() =0;
+    virtual double getCost();
     //basic function
     int    size()          { return modules_N;  }
     double getTotalArea()  { return TotalArea;  }
