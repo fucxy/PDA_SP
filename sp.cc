@@ -201,7 +201,7 @@ void Spair::packing(){
   				for(int k=0;k<modules_info[modules_info[H_candidate[i]].H_child[j]].H_parent.size();k++)
   				{
   					vector<int>::iterator it2;
-  					it2 = find (Eliminate.begin(), Eliminate.end(), modules_info[modules_info[V_candidate[i]].V_child[j]].H_parent[k]);
+  					it2 = find (Eliminate.begin(), Eliminate.end(), modules_info[modules_info[H_candidate[i]].H_child[j]].H_parent[k]);
   					if (it == Eliminate.end())//not found element
   					{
   						next_candidate=0;
