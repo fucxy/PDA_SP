@@ -162,54 +162,19 @@ void Spair::packing(){
   	}
   }
   
-  for(int i=0;i<hi_nodes.size();i++)
+  //place...
+  vector <int> H_candidate, V_candidate;
+
+  for(int i=0;i<Modules_Info.size();i++)
   {
-  	if(hi_nodes[i].H_parent.size()==0)
-  	{
-  		start.H_child.push_back(hi_nodes[i].id);
-  		hi_nodes[i].H_parent.push_back(start.id);
-  	}
-  	if(hi_nodes[i].V_parent.size()==0)
-  	{
-  		start.V_child.push_back(hi_nodes[i].id);
-  		hi_nodes[i].V_parent.push_back(start.id);
-  	}
-  	if(hi_nodes[i].H_child.size()==0)
-  	{
-  		hi_nodes[i].H_child.push_back(term.id);
-  		term.H_parent.push_back(hi_nodes[i].id);
-  	}
-  	if(hi_nodes[i].V_child.size()==0)
-  	{
-  		hi_nodes[i].V_child.push_back(term.id);
-  		term.V_parent.push_back(hi_nodes[i].id);
-  	}
+  	if(Modules_Info[i].H_parent.size()==0)
+  		H_candidate.push_back(i);
+  	if(Modules_Info[i].V_parent.size()==0)
+  		V_candidate.push_back(i);
   }
   
   
-  for(int i=0;i<start.H_child.size();i++)
-  {
-  	for(int j=0;j<hi_nodes.size();j++)
-  	{
-  		if(start.H_child[i].id==hi_nodes[j].id)
-  		{
-  			hi_nodes[j].long_width = 0+Module[H_candidate[i].id].width;
-  			break;
-  		}
-  	}
-  }
   
-  for(int i=0;i<start.V_child.size();i++)
-  {
-  	for(int j=0;j<hi_nodes.size();j++)
-  	{
-  		if(start.V_child[i].id==hi_nodes[j].id)
-  		{
-  			hi_nodes[j].long_height = 0+Module[H_candidate[i].id].height;
-  			break;
-  		}
-  	}
-  }
   
   //place_module XXXX
   Width  = max_x;
