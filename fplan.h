@@ -71,6 +71,7 @@ class FPlan{
   protected:
     void clear();
     double calcWireLength();
+    double calcWireLength1();
     void scaleIOPad();
     
     //parameter

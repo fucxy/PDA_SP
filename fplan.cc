@@ -37,7 +37,7 @@ void FPlan::clear(){
 
 double FPlan::getCost(){
   //debug message
-  cout<<"max_width:"<<max_Width<<" ,max_Height:"<<max_Heigth<<" ,width:"<<Width<<" ,Height:"<<Heigth<<endl;
+  cout<<"max_width:"<<max_Width<<" ,max_Height:"<<max_Height<<" ,width:"<<Width<<" ,Height:"<<Height<<endl;
 
   return (cost_alpha*(Area/norm_area)+(1-cost_alpha)*(WireLength/norm_wire));
 }
@@ -54,7 +54,7 @@ void FPlan::normalize_cost(int t){
 //Read
 //------------------
 
-void FPlan::read(const char *block_file,const char *net_file,const char* rf_file){
+void FPlan::read(const char *block_file,const char *net_file,const char* rt_file){
   cout<<"Read file"<<endl;
   int ta,tb,th,tw;
   filename = rt_file;
@@ -86,13 +86,13 @@ void FPlan::read(const char *block_file,const char *net_file,const char* rf_file
   root_module.pins.clear();
   strcpy(root_module.name,"terminal");
   root_module.width = max_Width;
-  root_module.heigth = max_Height;
+  root_module.height = max_Height;
   root_module.area = max_Width * max_Height;
   if(tb > 0)
     for(int i=0;i<tb;i++){
       fs >> t1 >> t2 >> tw >>th;
       Pin p;
-      p.mod = to;
+      p.mod = ta;
       p.x = tw;
       p.y = th;
       p.net = INT_MAX;
@@ -104,7 +104,7 @@ void FPlan::read(const char *block_file,const char *net_file,const char* rf_file
   //finish block file
 
   //read .net
-  fs.pen(net_file,ios::in);
+  fs.open(net_file,ios::in);
   fs >> t1 >> ta;
   for(int i=0;i<ta;i++){
     fs >> t1 >> tb;
@@ -230,6 +230,48 @@ double FPlan::calcWireLength(){
   }
   return WireLength;
 }
+double FPlan::calcWireLength1(){
+  WireLength=0;
+   for(int i=0; i < root_module.pins.size(); i++){
+    Pin &p = root_module.pins[i];
+    p.ax =  p.x;
+    p.ay =  p.y;
+
+  }
+
+  // compute absolute position
+  for(int i=0; i < modules_N; i++){
+    int mx= modules_info[i].x, my= modules_info[i].y;
+    bool rotate= modules_info[i].rotate;
+    int w= modules[i].width;
+
+    for(int j=0; j < modules[i].pins.size(); j++){
+      Pin &p = modules[i].pins[j];
+      if(!rotate){
+        p.ax= p.x+mx, p.ay= p.y+my;
+      }
+      else{ // Y' = W - X, X' = Y
+        p.ax= p.y+mx, p.ay= (w-p.x)+my;
+      }
+    }
+  }
+
+  for(int i=0; i < network.size(); i++){
+    int max_x= INT_MIN, max_y= INT_MIN;
+    int min_x= INT_MAX, min_y= INT_MAX;
+
+    assert(network[i].size() > 0);
+    for(int j=0; j < network[i].size(); j++){
+      Pin &p = *network[i][j];
+      max_x= max(max_x, p.ax), max_y= max(max_y, p.ay);
+      min_x= min(min_x, p.ax), min_y= min(min_y, p.ay);
+    }
+//    printf("%d %d %d %d\n",max_x,min_x,max_y,min_y);
+    WireLength += (max_x-min_x)+(max_y-min_y);
+  }
+  return WireLength;
+}
+
 //-----------------
 //Show Info
 //-----------------
