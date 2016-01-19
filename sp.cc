@@ -50,12 +50,12 @@ void Spair::testing(){
 void Spair::show_pair(){
   cout<<"hi_nodes:";
   for(int i;i<hi_nodes.size();i++){
-    cout<<hi_node[i].id<<" ";
+    cout<<hi_nodes[i].id<<" ";
   }
   cout<<endl;
   cout<<"lo_nodes:";
   for(int i;i<lo_nodes.size();i++){
-    cout<<lo_node[i].id<<" ";
+    cout<<lo_nodes[i].id<<" ";
   }
   cout<<endl;
 }

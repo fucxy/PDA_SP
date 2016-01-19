@@ -49,7 +49,7 @@ class FPlan{
     virtual void packing();
     virtual void perturb()      =0;
     virtual void keep_sol()     =0;
-    virtual void keep_best      =0;
+    virtual void keep_best()    =0;
     virtual void recover()      =0;
     virtual void recover_best() =0;
     //basic function
