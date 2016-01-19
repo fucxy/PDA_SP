@@ -26,7 +26,8 @@ class Spair: public FPlain{
     void testing();
 
   protected:
-  
+    void set_long_height(int id);
+    void set_long_weight(int id);
     void show_pair();
     void place_module(int mod_id);
     bool legal();
