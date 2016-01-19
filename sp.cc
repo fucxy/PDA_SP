@@ -92,8 +92,8 @@ void Spair::packing(){
   		{
   			if(hi_nodes[j]==lo_nodes[k])
   			{
-  				modules_info[hi_nodes[i]].H_child.push_back(hi_nodes[j]);
-  				modules_info[hi_nodes[j]].H_parent.push_back(hi_nodes[i]);
+  				Modules_Info[hi_nodes[i]].H_child.push_back(hi_nodes[j]);
+  				Modules_Info[hi_nodes[j]].H_parent.push_back(hi_nodes[i]);
   				break;
   			}
   		}
@@ -117,8 +117,8 @@ void Spair::packing(){
   		{
   			if(hi_nodes[j]==lo_nodes[k])
   			{
-  				modules_info[hi_nodes[i]].V_child.push_back(hi_nodes[j]);
-  				modules_info[hi_nodes[j]].V_parent.push_back(hi_nodes[i]);
+  				Modules_Info[hi_nodes[i]].V_child.push_back(hi_nodes[j]);
+  				Modules_Info[hi_nodes[j]].V_parent.push_back(hi_nodes[i]);
   				break;
   			}
   		}
