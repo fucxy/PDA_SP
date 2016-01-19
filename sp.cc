@@ -80,7 +80,7 @@ void Spair::packing(){
   	int lo_index;
   	for(int j=0;j<lo_nodes.size();j++)
   	{
-  		if(lo_nodes[j].id==hi_nodes[i].id)
+  		if(lo_nodes[j]==hi_nodes[i])
   		{
   			lo_index = j;
   			break;
@@ -90,10 +90,10 @@ void Spair::packing(){
   	{
   		for(int k=lo_index+1;k<lo_nodes.size();k++)
   		{
-  			if(hi_nodes[j].id==lo_nodes[k].id)
+  			if(hi_nodes[j]==lo_nodes[k])
   			{
-  				hi_nodes[i].H_child.push_back(hi_nodes[j].id);
-  				hi_nodes[j].H_parent.push_back(hi_nodes[i].id);
+  				hi_nodes[i].H_child.push_back(hi_nodes[j]);
+  				hi_nodes[j].H_parent.push_back(hi_nodes[i]);
   				break;
   			}
   		}
