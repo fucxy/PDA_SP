@@ -60,49 +60,53 @@ void Spair::show_pair(){
   cout<<endl;
 }
 void Spair::set_long_width(int id)
-  {
-  	if(modules_info[id].H_parent.size()==0)
-  	{
-  		modules_info[id].x = 0;
-  		modules_info[id].rx = modules[id].width;
+{
+	if(modules_info[id].H_parent.size()==0)
+	{
+		modules_info[id].x = 0;
+		modules_info[id].rx = modules[id].width;
 
-  	}
-  	else 
-  	{
-  		int max=0;
-  		for(int j=0;j<modules_info[id].H_parent.size();j++)
-  		{
-  			if(modules_info[modules_info[id].H_parent[j]].rx > max)
-  			{
-  				max = modules_info[modules_info[id].H_parent[j]].rx;
-  			}
-  		}
-  		modules_info[id].x = max;
-  		modules_info[id].rx = modules_info[id].x + modules[id].width;
-  	}
-  }
+	}
+	else 
+	{
+		int max=0;
+		for(int j=0;j<modules_info[id].H_parent.size();j++)
+		{
+			if(modules_info[modules_info[id].H_parent[j]].rx > max)
+			{
+				max = modules_info[modules_info[id].H_parent[j]].rx;
+			}
+		}
+		modules_info[id].x = max;
+		modules_info[id].rx = modules_info[id].x + modules[id].width;
+	}
+	if(Modules_Info[id].rx > max_x)
+		max_x = Modules_Info[id].rx;
+}
 
-  void Spair::set_long_height(int id)
-  {
-  	if(modules_info[id].H_parent.size()==0)
-  	{
-  		modules_info[id].y = 0;
-  		modules_info[id].ry = modules[id].height;
-  	}
-  	else 
-  	{
-  		int max=0;
-  		for(int j=0;j<modules_info[id].V_parent.size();j++)
-  		{
-  			if(modules_info[modules_info[id].V_parent[j]].ry > max)
-  			{
-  				max = modules_info[modules_info[id].V_parent[j]].ry;
-  			}
-  		}
-  		modules_info[id].y = max;
-  		modules_info[id].ry = modules_info[id].y + modules[id].height;
-  	}
-  }
+void Spair::set_long_height(int id)
+{
+	if(modules_info[id].H_parent.size()==0)
+	{
+		modules_info[id].y = 0;
+		modules_info[id].ry = modules[id].height;
+	}
+	else 
+	{
+		int max=0;
+		for(int j=0;j<modules_info[id].V_parent.size();j++)
+		{
+			if(modules_info[modules_info[id].V_parent[j]].ry > max)
+			{
+				max = modules_info[modules_info[id].V_parent[j]].ry;
+			}
+		}
+		modules_info[id].y = max;
+		modules_info[id].ry = modules_info[id].y + modules[id].height;
+	}
+	if(Modules_Info[id].ry > max_y)
+	max_y = Modules_Info[id].ry;
+}
 //--------------------------------------------------------------------------
 //Placement modules
 //--------------------------------------------------------------------------
