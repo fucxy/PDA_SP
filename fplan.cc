@@ -38,7 +38,6 @@ void FPlan::clear(){
 double FPlan::getCost(){
   //debug message
   cout<<"max_width:"<<max_Width<<" ,max_Height:"<<max_Height<<" ,width:"<<Width<<" ,Height:"<<Height<<endl;
-
   return (cost_alpha*(Area/norm_area)+(1-cost_alpha)*(WireLength/norm_wire));
 }
 

@@ -69,12 +69,11 @@ void Spair::packing(){
   Width  = -1;
   Height = -1;
   //child parent initialize
-  show_pair();
   for(int i=0;i<modules_info.size();i++){
     modules_info[i].H_child.clear();
     modules_info[i].V_child.clear();
     modules_info[i].H_parent.clear();
-    modules_info[i].H_parent.clear();
+    modules_info[i].V_parent.clear();
   }
   //H_child H_parent
   for(int i=0;i<hi_nodes.size();i++)
@@ -165,12 +164,10 @@ void Spair::packing(){
            }
          if(V_can[i]&&H_can[i]){
            root=i;
-           cout<<"root"<<endl;
          }
            
       }
     }
-    cout<<"add root"<<endl;
     int temp_w,temp_h;
     //add Root
     temp_w=modules[root].width;
@@ -190,7 +187,6 @@ void Spair::packing(){
     counter_x+=temp_w;
     counter_y+=temp_h;
     //add H_can
-    cout<<"H_can"<<endl;
     for(int i=0;i<modules_N;i++)
       if(i!=root&&H_can[i]&&exist[i]){
         temp_w=modules[i].width;
@@ -210,7 +206,6 @@ void Spair::packing(){
         counter_x+=temp_w;
       }
     //add V_can
-    cout<<"V_can"<<endl;
     for(int i=0;i<modules_N;i++)
       if(i!=root&&V_can[i]&&exist[i]){
         temp_w=modules[i].width;
@@ -230,14 +225,11 @@ void Spair::packing(){
         counter_y+=temp_h;
       }
     //remove node
-    cout<<"dead:";
     for(int i=0;i<modules_N;i++){
       if(H_can[i]||V_can[i]){
         exist[i]=false;
-        cout<<i<<" ";
       }
     }
-    cout<<endl;
     //valid node
     for(int i=0;i<modules_N;i++){
       if(exist[i]){
@@ -307,15 +299,12 @@ void Spair::recover(Solution &sol){
 //SA operation
 void Spair::perturb(){
   int p,n;
-  cout<<"do perturb"<<endl;
   n = rand()%modules_N;
   if(rotate_rate > rand_01()){
-    cout<<"do rotate"<<endl;
     modules_info[n].rotate=!modules_info[n].rotate;
   }
   else{
     if(single_swap_rate>rand_01()){
-      cout<<"do single swap"<<endl;
       do{ 
         p = rand()%modules_N;
       }while(n==p);
@@ -325,7 +314,6 @@ void Spair::perturb(){
         single_swap(n,p,1);
       }
     }else{
-      cout<<"do double swap"<<endl;
       do{
         p = rand()%modules_N;
       }while(n==p);

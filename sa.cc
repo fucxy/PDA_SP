@@ -73,9 +73,7 @@ double SA_Floorplan(FPlan &fp ,int k,int local = 0,float term_T = 0.1){
     vector<double> chain;
     for(;uphill < N && MT < 2*N;MT++){
       fp.perturb();
-      cout<<"finish perturb do packing"<<endl;
       fp.packing();
-      cout<<"finish packing"<<endl;
       cost = fp.getCost();
       d_cost = cost -pre_cost;
       float p = exp(d_cost/T);
