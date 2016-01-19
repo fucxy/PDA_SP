@@ -59,54 +59,7 @@ void Spair::show_pair(){
   }
   cout<<endl;
 }
-void Spair::set_long_width(int id)
-{
-	if(modules_info[id].H_parent.size()==0)
-	{
-		modules_info[id].x = 0;
-		modules_info[id].rx = modules[id].width;
 
-	}
-	else 
-	{
-		int max=0;
-		for(int j=0;j<modules_info[id].H_parent.size();j++)
-		{
-			if(modules_info[modules_info[id].H_parent[j]].rx > max)
-			{
-				max = modules_info[modules_info[id].H_parent[j]].rx;
-			}
-		}
-		modules_info[id].x = max;
-		modules_info[id].rx = modules_info[id].x + modules[id].width;
-	}
-	if(modules_info[id].rx > Width)
-		Width = modules_info[id].rx;
-}
-
-void Spair::set_long_height(int id)
-{
-	if(modules_info[id].V_parent.size()==0)
-	{
-		modules_info[id].y = 0;
-		modules_info[id].ry = modules[id].height;
-	}
-	else 
-	{
-		int max=0;
-		for(int j=0;j<modules_info[id].V_parent.size();j++)
-		{
-			if(modules_info[modules_info[id].V_parent[j]].ry > max)
-			{
-				max = modules_info[modules_info[id].V_parent[j]].ry;
-			}
-		}
-		modules_info[id].y = max;
-		modules_info[id].ry = modules_info[id].y + modules[id].height;
-	}
-	if(modules_info[id].ry > Height)
-		Height = modules_info[id].ry;
-}
 //--------------------------------------------------------------------------
 //Placement modules
 //--------------------------------------------------------------------------
@@ -115,9 +68,9 @@ void Spair::set_long_height(int id)
 void Spair::packing(){
   Width  = -1;
   Height = -1;
-  double max_x=-1,max_y=-1;
   //child parent initialize
-  for(int i=0;i<hi_nodes.size();i++){
+  show_pair();
+  for(int i=0;i<modules_info.size();i++){
     modules_info[i].H_child.clear();
     modules_info[i].V_child.clear();
     modules_info[i].H_parent.clear();
@@ -170,76 +123,134 @@ void Spair::packing(){
   			}
   		}
   	}
-  }
-  
+  } 
   //place...
-  vector <int> H_candidate, V_candidate, Eliminate;
-
-  for(int i=0;i<modules_info.size();i++)
-  {
-  	if(modules_info[i].H_parent.size()==0)
-  		H_candidate.push_back(i);
-  	if(modules_info[i].V_parent.size()==0)
-  		V_candidate.push_back(i);
+  bool not_end;
+  vector<bool> exist,H_can,V_can;
+  int root;
+  double floor_x=0,floor_y=0,max_x=0,max_y=0,local_h,local_w,counter_x,counter_y;
+  for(int i=0;i<modules_N;i++){
+    exist.push_back(true);
+    H_can.push_back(false);
+    V_can.push_back(false);
   }
-  
-  while(H_candidate.size()!=0 && V_candidate.size()!=0)
-  {
-  	for(int i=0;i<H_candidate.size();i++)
-  	{
-  		vector<int>::iterator it;
-  		it = find (V_candidate.begin(), V_candidate.end(), H_candidate[i]);
-  		if (it != V_candidate.end())//found element
-  		{
-  			set_long_width(H_candidate[i]);
-  			set_long_height(H_candidate[i]);
-  			
-  			Eliminate.push_back(H_candidate[i]);
-  			for(int j=0;j<modules_info[H_candidate[i]].H_child.size();j++)
-  			{
-  				bool next_candidate=1;//is candidate
-  				for(int k=0;k<modules_info[modules_info[H_candidate[i]].H_child[j]].H_parent.size();k++)
-  				{
-  					vector<int>::iterator it2;
-  					it2 = find (Eliminate.begin(), Eliminate.end(), modules_info[modules_info[H_candidate[i]].H_child[j]].H_parent[k]);
-  					if (it == Eliminate.end())//not found element
-  					{
-  						next_candidate=0;
-  						break;
-  					}
-  				}
-  				if(next_candidate)
-  					H_candidate.push_back(modules_info[H_candidate[i]].H_child[j]);
-  			}
-  			
-  			for(int j=0;j<modules_info[V_candidate[i]].V_child.size();j++)
-  			{
-  				bool next_candidate=1;//is candidate
-  				for(int k=0;k<modules_info[modules_info[V_candidate[i]].V_child[j]].V_parent.size();k++)
-  				{
-  					vector<int>::iterator it2;
-  					it2 = find (Eliminate.begin(), Eliminate.end(), modules_info[modules_info[V_candidate[i]].V_child[j]].V_parent[k]);
-  					if (it == Eliminate.end())//not found element
-  					{
-  						next_candidate=0;
-  						break;
-  					}
-  				}
-  				if(next_candidate)
-  					V_candidate.push_back(modules_info[V_candidate[i]].V_child[j]);
-  			}
-  			H_candidate.erase(H_candidate.begin()+i);
-  			V_candidate.erase(it);
-  			break;
-  		}
-  	}
-  }
-  
-  
-  
-  //place module XXXX
-  //Width  = max_x;
-  //Height = max_y;
+  do{
+    //start
+    not_end=false; 
+    local_h=0;
+    local_w=0;
+    counter_x=0;
+    counter_y=0;
+    for(int i=0;i<modules_N;i++){
+      H_can[i]=false;
+      V_can[i]=false;
+    }
+    for(int i=0;i<modules_N;i++){
+      if(exist[i]){
+         H_can[i]=true;
+         if(modules_info[i].H_parent.size()!=0)
+           for(int j=0;j<modules_info[i].H_parent.size();j++){
+             if(exist[modules_info[i].H_parent[j]]){
+               H_can[i]=false;
+               break;
+             }
+           }
+         V_can[i]=true;
+         if(modules_info[i].V_parent.size()!=0)
+           for(int j=0;j<modules_info[i].V_parent.size();j++){
+             if(exist[modules_info[i].V_parent[j]]){
+               V_can[i]=false;
+               break;
+             }
+           }
+         if(V_can[i]&&H_can[i]){
+           root=i;
+           cout<<"root"<<endl;
+         }
+           
+      }
+    }
+    cout<<"add root"<<endl;
+    int temp_w,temp_h;
+    //add Root
+    temp_w=modules[root].width;
+    temp_h=modules[root].height;
+    if(modules_info[root].rotate)
+      swap(temp_w,temp_h);
+    modules_info[root].x=floor_x;
+    modules_info[root].y=floor_y;
+    modules_info[root].rx=floor_x+temp_w;
+    if(modules_info[root].rx>max_x)
+      max_x=modules_info[root].rx;
+    modules_info[root].ry=floor_y+temp_h;
+    if(modules_info[root].ry>max_y)
+      max_y=modules_info[root].ry;
+    local_w=temp_w;
+    local_h=temp_h;
+    counter_x+=temp_w;
+    counter_y+=temp_h;
+    //add H_can
+    cout<<"H_can"<<endl;
+    for(int i=0;i<modules_N;i++)
+      if(i!=root&&H_can[i]&&exist[i]){
+        temp_w=modules[i].width;
+        temp_h=modules[i].height;
+        if(modules_info[i].rotate)
+          swap(temp_w,temp_h);
+        modules_info[i].x=floor_x+counter_x;
+        modules_info[i].y=floor_y;
+        modules_info[i].rx=modules_info[i].x+temp_w;
+        if(modules_info[i].rx>max_x)
+          max_x=modules_info[i].rx;
+        modules_info[i].ry=floor_y+temp_h;
+        if(modules_info[i].ry>max_y)
+          max_y=modules_info[i].ry;
+        if(temp_h>local_h)
+          local_h=temp_h;
+        counter_x+=temp_w;
+      }
+    //add V_can
+    cout<<"V_can"<<endl;
+    for(int i=0;i<modules_N;i++)
+      if(i!=root&&V_can[i]&&exist[i]){
+        temp_w=modules[i].width;
+        temp_h=modules[i].height;
+        if(modules_info[i].rotate)
+          swap(temp_w,temp_h);
+        modules_info[i].x=floor_x;
+        modules_info[i].y=floor_y+counter_y;
+        modules_info[i].rx=modules_info[i].x+temp_w;
+        if(modules_info[i].rx>max_x)
+          max_x=modules_info[i].rx;
+        modules_info[i].ry=modules_info[i].y+temp_h;
+        if(modules_info[i].ry>max_y)
+          max_y=modules_info[i].ry;
+        if(temp_w>local_w)
+          local_w=temp_w;
+        counter_y+=temp_h;
+      }
+    //remove node
+    cout<<"dead:";
+    for(int i=0;i<modules_N;i++){
+      if(H_can[i]||V_can[i]){
+        exist[i]=false;
+        cout<<i<<" ";
+      }
+    }
+    cout<<endl;
+    //valid node
+    for(int i=0;i<modules_N;i++){
+      if(exist[i]){
+        not_end=true;
+        break;
+      }
+    }
+    //calc floor
+    floor_x+=local_w;
+    floor_y+=local_h;
+  }while(not_end);
+  Height=max_y;
+  Width=max_x;
   Area   = Height*Width;
   
   //for wirelength
