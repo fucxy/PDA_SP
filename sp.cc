@@ -80,8 +80,8 @@ void Spair::set_long_width(int id)
 		modules_info[id].x = max;
 		modules_info[id].rx = modules_info[id].x + modules[id].width;
 	}
-	if(modules_info[id].rx > max_x)
-		max_x = modules_info[id].rx;
+	if(modules_info[id].rx > Width)
+		Width = modules_info[id].rx;
 }
 
 void Spair::set_long_height(int id)
@@ -104,8 +104,8 @@ void Spair::set_long_height(int id)
 		modules_info[id].y = max;
 		modules_info[id].ry = modules_info[id].y + modules[id].height;
 	}
-	if(modules_info[id].ry > max_y)
-	max_y = modules_info[id].ry;
+	if(modules_info[id].ry > Height)
+		Height = modules_info[id].ry;
 }
 //--------------------------------------------------------------------------
 //Placement modules
@@ -239,8 +239,8 @@ void Spair::packing(){
   
   
   //place module XXXX
-  Width  = max_x;
-  Height = max_y;
+  //Width  = max_x;
+  //Height = max_y;
   Area   = Height*Width;
   
   //for wirelength
