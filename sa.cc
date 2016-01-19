@@ -16,7 +16,7 @@ float lamda = 1.3;
 double mean(vector<double> &chain){
   double sum = 0;
   for(int i=0;i < chain.size();i++)
-    sum += chian[i];
+    sum += chain[i];
   return sum/chain.size();
 }
 
@@ -36,7 +36,7 @@ double std_var(vector<double> &chain){
    local: local search iterations
    termT: terminating temperature
 */
-double SA_floorplan(FPlan &fp ,int k,int local = 0,float term_T = 0.1){
+double SA_Floorplan(FPlan &fp ,int k,int local = 0,float term_T = 0.1){
   int MT,uphill,reject;
   double pre_cost,best,cost;
   float d_cost,reject_rate;
@@ -70,7 +70,7 @@ double SA_floorplan(FPlan &fp ,int k,int local = 0,float term_T = 0.1){
     MT=uphill=reject=0;
     printf("Iteration %d, T= %.2f\n", count,  actual_T);
  
-    vector<double> chian;
+    vector<double> chain;
 
     for(;uphill < N && MT < 2*N;MT++){
       fp.perturb();
@@ -99,7 +99,7 @@ double SA_floorplan(FPlan &fp ,int k,int local = 0,float term_T = 0.1){
         }
       }
       else{
-        reject++:
+        reject++;
         fp.recover();
       }
     }
@@ -113,13 +113,13 @@ double SA_floorplan(FPlan &fp ,int k,int local = 0,float term_T = 0.1){
       actual_T = exp(estimate_avg/T);
     }
     if(count > local){
-      actual_T = exp(estimate/T);
+      actual_T = exp(estimate_avg/T);
       conv_rate = 0.95; 
     }
     
     reject_rate = float(reject)/MT;
     printf("  T= %.2f, r= %.2f, reject= %.2f\n\n",actual_T,r_t,reject_rate);
-  }while(reject_rate < conv_rate && actual_T > term_T)
+  }while(reject_rate < conv_rate && actual_T > term_T);
 
    if(reject_rate >= conv_rate)
      cout<< "\n  Convergent!\n";
@@ -152,10 +152,10 @@ double Random_Floorplan(FPlan &fp,int times ){
       if(cost < best){
         fp.keep_best();
         best = cost;
-        cout << "==> cost="<best<<endl;
+        cout << "==> cost="<<best<<endl;
       }
     }
-  }while(total_cost==0)
+  }while(total_cost==0);
 
   fp.recover_best();
   fp.packing();
