@@ -1,9 +1,9 @@
-#include<iostream>
-#include<fstream>
-#include<cstdlib>
-#include<string>
-#include<sa.h>
-#include<sp.h>
+#include <iostream>
+#include <fstream>
+#include <cstdlib>
+#include <string>
+#include "sa.h"
+#include "sp.h"
 using namespace std;
 string temp_str;
 float a=0.0;
@@ -17,10 +17,10 @@ int main(int argc,char * argv[]){
   a=atof(argv[1]);
   try{
     double time = seconds();
-    SPair fp(a);
+    Spair fp(a);
     fp.read(argv[2],argv[3],argv[4]);
     fp.init();
-    double last_time = SA_Foorplan(fp,time,local,term_temp);
+    double last_time = SA_Floorplan(fp,time,local,term_temp);
     fp.set_time(last_time);
     fp.list_information();
   }catch(...){}
