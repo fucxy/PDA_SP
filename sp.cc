@@ -191,6 +191,43 @@ void Spair::packing(){
   		{
   			set_long_width(H_candidate[i]);
   			set_long_height(H_candidate[i]);
+  			
+  			Eliminate.push_back(H_candidate[i]);
+  			for(int j=0;j<Modules_Info[H_candidate[i]].H_child.size();j++)
+  			{
+  				bool next_candidate=1;//is candidate
+  				for(int k=0;k<Modules_Info[H_candidate[i]].H_child[j].H_parent.size();k++)
+  				{
+  					vector<int>::iterator it2;
+  					it2 = find (Eliminate.begin(), Eliminate.end(), Modules_Info[H_candidate[i]].H_child[j].H_parent[k]);
+  					if (it == Eliminate.end())//not found element
+  					{
+  						next_candidate=0;
+  						break;
+  					}
+  				}
+  				if(next_candidate)
+  					H_candidate.push_back(Modules_Info[H_candidate[i]].H_child[j]);
+  			}
+  			
+  			for(int j=0;j<Modules_Info[V_candidate[i]].V_child.size();j++)
+  			{
+  				bool next_candidate=1;//is candidate
+  				for(int k=0;k<Modules_Info[V_candidate[i]].V_child[j].V_parent.size();k++)
+  				{
+  					vector<int>::iterator it2;
+  					it2 = find (Eliminate.begin(), Eliminate.end(), Modules_Info[V_candidate[i]].V_child[j].V_parent[k]);
+  					if (it == Eliminate.end())//not found element
+  					{
+  						next_candidate=0;
+  						break;
+  					}
+  				}
+  				if(next_candidate)
+  					V_candidate.push_back(Modules_Info[V_candidate[i]].V_child[j]);
+  			}
+  			H_candidate.erase(H_candidate.begin()+i);
+  			V_candidate.erase(it);
   			break;
   		}
   	}
