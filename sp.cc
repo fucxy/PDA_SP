@@ -143,7 +143,6 @@ void Spair::packing(){
   			{
   				modules_info[hi_nodes[i]].H_child.push_back(hi_nodes[j]);
   				modules_info[hi_nodes[j]].H_parent.push_back(hi_nodes[i]);
-  				break;
   			}
   		}
   	}
@@ -168,7 +167,6 @@ void Spair::packing(){
   			{
   				modules_info[hi_nodes[i]].V_child.push_back(hi_nodes[j]);
   				modules_info[hi_nodes[j]].V_parent.push_back(hi_nodes[i]);
-  				break;
   			}
   		}
   	}
