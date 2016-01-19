@@ -298,12 +298,15 @@ void Spair::recover(Solution &sol){
 //SA operation
 void Spair::perturb(){
   int p,n;
+  cout<<"do perturb"<<endl;
   n = rand()%modules_N;
   if(rotate_rate > rand_01()){
+    cout<<"do rotate"<<endl;
     modules_info[n].rotate=!modules_info[n].rotate;
   }
   else{
     if(single_swap_rate>rand_01()){
+      cout<<"do single swap"<<endl;
       do{ 
         p = rand()%modules_N;
       }while(n==p);
@@ -313,6 +316,7 @@ void Spair::perturb(){
         single_swap(n,p,1);
       }
     }else{
+      cout<<"do double swap"<<endl;
       do{
         p = rand()%modules_N;
       }while(n==p);
