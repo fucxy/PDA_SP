@@ -27,7 +27,7 @@ class Spair : public FPlan{
 
   protected:
     void set_long_height(int id);
-    void set_long_weight(int id);
+    void set_long_width(int id);
     void show_pair();
     void place_module(int mod_id);
     bool legal();

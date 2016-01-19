@@ -61,45 +61,46 @@ void Spair::show_pair(){
 }
 void Spair::set_long_width(int id)
   {
-  	if(Modules_Info[id].H_parent.size()==0)
+  	if(modules_info[id].H_parent.size()==0)
   	{
-  		Modules_Info[id].x = 0;
-  		Modules_Info[id].rx = Module[id].width;
+  		modules_info[id].x = 0;
+  		modules_info[id].rx = modules[id].width;
+
   	}
   	else 
   	{
   		int max=0;
-  		for(int j=0;j<Modules_Info[id].H_parent.size();j++)
+  		for(int j=0;j<modules_info[id].H_parent.size();j++)
   		{
-  			if(Modules_Info[Modules_Info[id].H_parent[j]].rx > max)
+  			if(modules_info[modules_info[id].H_parent[j]].rx > max)
   			{
-  				max = Modules_Info[Modules_Info[id].H_parent[j]].rx;
+  				max = modules_info[modules_info[id].H_parent[j]].rx;
   			}
   		}
-  		Modules_Info[id].x = max;
-  		Modules_Info[id].rx = Modules_Info[id].x + Module[id].width;
+  		modules_info[id].x = max;
+  		modules_info[id].rx = modules_info[id].x + modules[id].width;
   	}
   }
 
   void Spair::set_long_height(int id)
   {
-  	if(Modules_Info[id].H_parent.size()==0)
+  	if(modules_info[id].H_parent.size()==0)
   	{
-  		Modules_Info[id].y = 0;
-  		Modules_Info[id].ry = Module[id].height;
+  		modules_info[id].y = 0;
+  		modules_info[id].ry = modules[id].height;
   	}
   	else 
   	{
   		int max=0;
-  		for(int j=0;j<Modules_Info[id].V_parent.size();j++)
+  		for(int j=0;j<modules_info[id].V_parent.size();j++)
   		{
-  			if(Modules_Info[Modules_Info[id].V_parent[j]].ry > max)
+  			if(modules_info[modules_info[id].V_parent[j]].ry > max)
   			{
-  				max = Modules_Info[Modules_Info[id].V_parent[j]].ry;
+  				max = modules_info[modules_info[id].V_parent[j]].ry;
   			}
   		}
-  		Modules_Info[id].y = max;
-  		Modules_Info[id].ry = Modules_Info[id].y + Module[id].height;
+  		modules_info[id].y = max;
+  		modules_info[id].ry = modules_info[id].y + modules[id].height;
   	}
   }
 //--------------------------------------------------------------------------
@@ -135,8 +136,8 @@ void Spair::packing(){
   		{
   			if(hi_nodes[j]==lo_nodes[k])
   			{
-  				Modules_Info[hi_nodes[i]].H_child.push_back(hi_nodes[j]);
-  				Modules_Info[hi_nodes[j]].H_parent.push_back(hi_nodes[i]);
+  				modules_info[hi_nodes[i]].H_child.push_back(hi_nodes[j]);
+  				modules_info[hi_nodes[j]].H_parent.push_back(hi_nodes[i]);
   				break;
   			}
   		}
@@ -160,8 +161,8 @@ void Spair::packing(){
   		{
   			if(hi_nodes[j]==lo_nodes[k])
   			{
-  				Modules_Info[hi_nodes[i]].V_child.push_back(hi_nodes[j]);
-  				Modules_Info[hi_nodes[j]].V_parent.push_back(hi_nodes[i]);
+  				modules_info[hi_nodes[i]].V_child.push_back(hi_nodes[j]);
+  				modules_info[hi_nodes[j]].V_parent.push_back(hi_nodes[i]);
   				break;
   			}
   		}
@@ -171,11 +172,11 @@ void Spair::packing(){
   //place...
   vector <int> H_candidate, V_candidate, Eliminate;
 
-  for(int i=0;i<Modules_Info.size();i++)
+  for(int i=0;i<modules_info.size();i++)
   {
-  	if(Modules_Info[i].H_parent.size()==0)
+  	if(modules_info[i].H_parent.size()==0)
   		H_candidate.push_back(i);
-  	if(Modules_Info[i].V_parent.size()==0)
+  	if(modules_info[i].V_parent.size()==0)
   		V_candidate.push_back(i);
   }
   
@@ -191,13 +192,13 @@ void Spair::packing(){
   			set_long_height(H_candidate[i]);
   			
   			Eliminate.push_back(H_candidate[i]);
-  			for(int j=0;j<Modules_Info[H_candidate[i]].H_child.size();j++)
+  			for(int j=0;j<modules_info[H_candidate[i]].H_child.size();j++)
   			{
   				bool next_candidate=1;//is candidate
-  				for(int k=0;k<Modules_Info[H_candidate[i]].H_child[j].H_parent.size();k++)
+  				for(int k=0;k<modules_info[H_candidate[i]].H_child[j].H_parent.size();k++)
   				{
   					vector<int>::iterator it2;
-  					it2 = find (Eliminate.begin(), Eliminate.end(), Modules_Info[H_candidate[i]].H_child[j].H_parent[k]);
+  					it2 = find (Eliminate.begin(), Eliminate.end(), modules_info[H_candidate[i]].H_child[j].H_parent[k]);
   					if (it == Eliminate.end())//not found element
   					{
   						next_candidate=0;
@@ -205,16 +206,16 @@ void Spair::packing(){
   					}
   				}
   				if(next_candidate)
-  					H_candidate.push_back(Modules_Info[H_candidate[i]].H_child[j]);
+  					H_candidate.push_back(modules_info[H_candidate[i]].H_child[j]);
   			}
   			
-  			for(int j=0;j<Modules_Info[V_candidate[i]].V_child.size();j++)
+  			for(int j=0;j<modules_info[V_candidate[i]].V_child.size();j++)
   			{
   				bool next_candidate=1;//is candidate
-  				for(int k=0;k<Modules_Info[V_candidate[i]].V_child[j].V_parent.size();k++)
+  				for(int k=0;k<modules_info[V_candidate[i]].V_child[j].V_parent.size();k++)
   				{
   					vector<int>::iterator it2;
-  					it2 = find (Eliminate.begin(), Eliminate.end(), Modules_Info[V_candidate[i]].V_child[j].V_parent[k]);
+  					it2 = find (Eliminate.begin(), Eliminate.end(), modules_info[V_candidate[i]].V_child[j].V_parent[k]);
   					if (it == Eliminate.end())//not found element
   					{
   						next_candidate=0;
@@ -222,7 +223,7 @@ void Spair::packing(){
   					}
   				}
   				if(next_candidate)
-  					V_candidate.push_back(Modules_Info[V_candidate[i]].V_child[j]);
+  					V_candidate.push_back(modules_info[V_candidate[i]].V_child[j]);
   			}
   			H_candidate.erase(H_candidate.begin()+i);
   			V_candidate.erase(it);
@@ -233,21 +234,21 @@ void Spair::packing(){
   
   
   
-  //place_module XXXX
+  //place module XXXX
   Width  = max_x;
   Height = max_y;
   Area   = Height*Width;
   
   //for wirelength
-  FPan::packing(); 
+  FPlan::packing(); 
 }
 
 void Spair::place_module(int mod_id){
-  Module_Info &mod_mf = modules_info[mod];
-  mod_mf.rotate = hi_nodes[mod].rotate;
+  Module_Info &mod_mf = modules_info[mod_id];
+  mod_mf.rotate = modules_info[mod_id].rotate;
 
-  int w = modules[mod].width;
-  int h = modules[mod].height;
+  int w = modules[mod_id].width;
+  int h = modules[mod_id].height;
   if(mod_mf.rotate)
     swap(w,h);
   //place your modules and uodate to Module_Info
@@ -309,7 +310,7 @@ void Spair::perturb(){
     }else{
       do{
         p = rand()%modules_N;
-      }while(n==p)
+      }while(n==p);
       double_swap(n,p);
     }
   }
@@ -323,6 +324,6 @@ void Spair::single_swap(int n1,int n2,int i){
 }
 
 void Spair::double_swap(int n1,int n2){
-  single_swap(n,p,1);
-  single_swap(n,p,0);
+  single_swap(n1,n2,1);
+  single_swap(n1,n2,0);
 }
