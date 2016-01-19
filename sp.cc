@@ -66,6 +66,43 @@ void Spair::show_pair(){
 
 //get Outline 
 void Spair::packing(){
+  
+  void set_long_width(int id)
+  {
+  	if(Modules_Info[id].H_parent.size()==0)
+  		Modules_Info[id].long_width = Module[id].width;
+  	else 
+  	{
+  		int max=0;
+  		for(int j=0;j<Modules_Info[id].H_parent.size();j++)
+  		{
+  			if(Modules_Info[Modules_Info[id].H_parent[j]].long_width+Module[id].width > max)
+  			{
+  				max = Modules_Info[Modules_Info[id].H_parent[j]].long_width+Module[id].width;
+  			}
+  		}
+  		Modules_Info[id].long_width = max;
+  	}
+  }
+
+  void set_long_height(int id)
+  {
+  	if(Modules_Info[id].H_parent.size()==0)
+  		Modules_Info[id].long_height = Module[id].height;
+  	else 
+  	{
+  		int max=0;
+  		for(int j=0;j<Modules_Info[id].H_parent.size();j++)
+  		{
+  			if(Modules_Info[Modules_Info[id].H_parent[j]].long_height+Module[id].height > max)
+  			{
+  				max = Modules_Info[Modules_Info[id].H_parent[j]].long_height+Module[id].height;
+  			}
+  		}
+  		Modules_Info[id].long_height = max;
+  	}
+  }
+  
   double max_x=-1,max_y=-1;
   //child parent initialize
   for(int i=0;i<hi_nodes.size();i++){
