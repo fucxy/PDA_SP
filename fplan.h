@@ -92,3 +92,4 @@ class FPlan{
     map<string,int> net_table;
     string filename;
 };
+#endif
