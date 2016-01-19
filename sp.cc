@@ -113,7 +113,8 @@ void Spair::set_long_height(int id)
 
 //get Outline 
 void Spair::packing(){
-  
+  Width  = -1;
+  Height = -1;
   double max_x=-1,max_y=-1;
   //child parent initialize
   for(int i=0;i<hi_nodes.size();i++){
