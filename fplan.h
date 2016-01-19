@@ -92,4 +92,9 @@ class FPlan{
     map<string,int> net_table;
     string filename;
 };
+
+void error(char *msg,char *msg2);
+bool rand_bool();
+float rand_01();
+double seconds();
 #endif
