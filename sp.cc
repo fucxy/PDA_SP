@@ -60,48 +60,48 @@ void Spair::show_pair(){
   cout<<endl;
 }
 void Spair::set_long_width(int id)
-  {
-  	if(Modules_Info[id].H_parent.size()==0)
-  	{
-  		Modules_Info[id].x = 0;
-  		Modules_Info[id].rx = Module[id].width;
-  	}
-  	else 
-  	{
-  		int max=0;
-  		for(int j=0;j<Modules_Info[id].H_parent.size();j++)
-  		{
-  			if(Modules_Info[Modules_Info[id].H_parent[j]].rx > max)
-  			{
-  				max = Modules_Info[Modules_Info[id].H_parent[j]].rx;
-  			}
-  		}
-  		Modules_Info[id].x = max;
-  		Modules_Info[id].rx = Modules_Info[id].x + Module[id].width;
-  	}
-  }
+{
+	if(Modules_Info[id].H_parent.size()==0)
+	{
+		Modules_Info[id].x = 0;
+		Modules_Info[id].rx = Module[id].width;
+	}
+	else 
+	{
+		int max=0;
+		for(int j=0;j<Modules_Info[id].H_parent.size();j++)
+		{
+			if(Modules_Info[Modules_Info[id].H_parent[j]].rx > max)
+			{
+				max = Modules_Info[Modules_Info[id].H_parent[j]].rx;
+			}
+		}
+		Modules_Info[id].x = max;
+		Modules_Info[id].rx = Modules_Info[id].x + Module[id].width;
+	}
+}
 
-  void Spair::set_long_height(int id)
-  {
-  	if(Modules_Info[id].H_parent.size()==0)
-  	{
-  		Modules_Info[id].y = 0;
-  		Modules_Info[id].ry = Module[id].height;
-  	}
-  	else 
-  	{
-  		int max=0;
-  		for(int j=0;j<Modules_Info[id].V_parent.size();j++)
-  		{
-  			if(Modules_Info[Modules_Info[id].V_parent[j]].ry > max)
-  			{
-  				max = Modules_Info[Modules_Info[id].V_parent[j]].ry;
-  			}
-  		}
-  		Modules_Info[id].y = max;
-  		Modules_Info[id].ry = Modules_Info[id].y + Module[id].height;
-  	}
-  }
+void Spair::set_long_height(int id)
+{
+	if(Modules_Info[id].H_parent.size()==0)
+	{
+		Modules_Info[id].y = 0;
+		Modules_Info[id].ry = Module[id].height;
+	}
+	else 
+	{
+		int max=0;
+		for(int j=0;j<Modules_Info[id].V_parent.size();j++)
+		{
+			if(Modules_Info[Modules_Info[id].V_parent[j]].ry > max)
+			{
+				max = Modules_Info[Modules_Info[id].V_parent[j]].ry;
+			}
+		}
+		Modules_Info[id].y = max;
+		Modules_Info[id].ry = Modules_Info[id].y + Module[id].height;
+	}
+}
 //--------------------------------------------------------------------------
 //Placement modules
 //--------------------------------------------------------------------------
