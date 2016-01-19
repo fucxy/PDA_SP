@@ -86,7 +86,7 @@ void Spair::set_long_width(int id)
 
 void Spair::set_long_height(int id)
 {
-	if(modules_info[id].H_parent.size()==0)
+	if(modules_info[id].V_parent.size()==0)
 	{
 		modules_info[id].y = 0;
 		modules_info[id].ry = modules[id].height;
