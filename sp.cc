@@ -59,15 +59,7 @@ void Spair::show_pair(){
   }
   cout<<endl;
 }
-
-//--------------------------------------------------------------------------
-//Placement modules
-//--------------------------------------------------------------------------
-
-//get Outline 
-void Spair::packing(){
-  
-  void set_long_width(int id)
+void Spair::set_long_width(int id)
   {
   	if(Modules_Info[id].H_parent.size()==0)
   	{
@@ -89,7 +81,7 @@ void Spair::packing(){
   	}
   }
 
-  void set_long_height(int id)
+  void Spair::set_long_height(int id)
   {
   	if(Modules_Info[id].H_parent.size()==0)
   	{
@@ -110,6 +102,12 @@ void Spair::packing(){
   		Modules_Info[id].ry = Modules_Info[id].y + Module[id].height;
   	}
   }
+//--------------------------------------------------------------------------
+//Placement modules
+//--------------------------------------------------------------------------
+
+//get Outline 
+void Spair::packing(){
   
   double max_x=-1,max_y=-1;
   //child parent initialize
