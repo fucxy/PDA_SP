@@ -80,8 +80,8 @@ void Spair::set_long_width(int id)
 		modules_info[id].x = max;
 		modules_info[id].rx = modules_info[id].x + modules[id].width;
 	}
-	if(Modules_Info[id].rx > max_x)
-		max_x = Modules_Info[id].rx;
+	if(modules_info[id].rx > max_x)
+		max_x = modules_info[id].rx;
 }
 
 void Spair::set_long_height(int id)
@@ -104,8 +104,8 @@ void Spair::set_long_height(int id)
 		modules_info[id].y = max;
 		modules_info[id].ry = modules_info[id].y + modules[id].height;
 	}
-	if(Modules_Info[id].ry > max_y)
-	max_y = Modules_Info[id].ry;
+	if(modules_info[id].ry > max_y)
+	max_y = modules_info[id].ry;
 }
 //--------------------------------------------------------------------------
 //Placement modules
