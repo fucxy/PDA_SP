@@ -305,7 +305,7 @@ void Spair::perturb(){
     if(single_swap_rate>rand_01()){
       do{ 
         p = rand()%modules_N;
-      }while(n==p)
+      }while(n==p);
       if(rand()%2==0){
         single_swap(n,p,0);
       }else{
