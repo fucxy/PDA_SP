@@ -199,10 +199,10 @@ void Spair::packing(){
   			for(int j=0;j<modules_info[H_candidate[i]].H_child.size();j++)
   			{
   				bool next_candidate=1;//is candidate
-  				for(int k=0;k<modules_info[H_candidate[i]].H_child[j].H_parent.size();k++)
+  				for(int k=0;k<modules_info[modules_info[H_candidate[i]].H_child[j]].H_parent.size();k++)
   				{
   					vector<int>::iterator it2;
-  					it2 = find (Eliminate.begin(), Eliminate.end(), modules_info[H_candidate[i]].H_child[j].H_parent[k]);
+  					it2 = find (Eliminate.begin(), Eliminate.end(), modules_info[modules_info[V_candidate[i]].V_child[j]].H_parent[k]);
   					if (it == Eliminate.end())//not found element
   					{
   						next_candidate=0;
@@ -216,10 +216,10 @@ void Spair::packing(){
   			for(int j=0;j<modules_info[V_candidate[i]].V_child.size();j++)
   			{
   				bool next_candidate=1;//is candidate
-  				for(int k=0;k<modules_info[V_candidate[i]].V_child[j].V_parent.size();k++)
+  				for(int k=0;k<modules_info[modules_info[V_candidate[i]].V_child[j]].V_parent.size();k++)
   				{
   					vector<int>::iterator it2;
-  					it2 = find (Eliminate.begin(), Eliminate.end(), modules_info[V_candidate[i]].V_child[j].V_parent[k]);
+  					it2 = find (Eliminate.begin(), Eliminate.end(), modules_info[modules_info[V_candidate[i]].V_child[j]].V_parent[k]);
   					if (it == Eliminate.end())//not found element
   					{
   						next_candidate=0;
