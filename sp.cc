@@ -70,36 +70,44 @@ void Spair::packing(){
   void set_long_width(int id)
   {
   	if(Modules_Info[id].H_parent.size()==0)
-  		Modules_Info[id].long_width = Module[id].width;
+  	{
+  		Modules_Info[id].x = 0;
+  		Modules_Info[id].rx = Module[id].width;
+  	}
   	else 
   	{
   		int max=0;
   		for(int j=0;j<Modules_Info[id].H_parent.size();j++)
   		{
-  			if(Modules_Info[Modules_Info[id].H_parent[j]].long_width+Module[id].width > max)
+  			if(Modules_Info[Modules_Info[id].H_parent[j]].rx > max)
   			{
-  				max = Modules_Info[Modules_Info[id].H_parent[j]].long_width+Module[id].width;
+  				max = Modules_Info[Modules_Info[id].H_parent[j]].rx;
   			}
   		}
-  		Modules_Info[id].long_width = max;
+  		Modules_Info[id].x = max;
+  		Modules_Info[id].rx = Modules_Info[id].x + Module[id].width;
   	}
   }
 
   void set_long_height(int id)
   {
   	if(Modules_Info[id].H_parent.size()==0)
-  		Modules_Info[id].long_height = Module[id].height;
+  	{
+  		Modules_Info[id].y = 0;
+  		Modules_Info[id].ry = Module[id].height;
+  	}
   	else 
   	{
   		int max=0;
-  		for(int j=0;j<Modules_Info[id].H_parent.size();j++)
+  		for(int j=0;j<Modules_Info[id].V_parent.size();j++)
   		{
-  			if(Modules_Info[Modules_Info[id].H_parent[j]].long_height+Module[id].height > max)
+  			if(Modules_Info[Modules_Info[id].V_parent[j]].ry > max)
   			{
-  				max = Modules_Info[Modules_Info[id].H_parent[j]].long_height+Module[id].height;
+  				max = Modules_Info[Modules_Info[id].V_parent[j]].ry;
   			}
   		}
-  		Modules_Info[id].long_height = max;
+  		Modules_Info[id].y = max;
+  		Modules_Info[id].ry = Modules_Info[id].y + Module[id].height;
   	}
   }
   
@@ -163,7 +171,7 @@ void Spair::packing(){
   }
   
   //place...
-  vector <int> H_candidate, V_candidate;
+  vector <int> H_candidate, V_candidate, Eliminate;
 
   for(int i=0;i<Modules_Info.size();i++)
   {
@@ -173,6 +181,20 @@ void Spair::packing(){
   		V_candidate.push_back(i);
   }
   
+  while(H_candidate.size()!=0 && V_candidate.size()!=0)
+  {
+  	for(int i=0;i<H_candidate.size();i++)
+  	{
+  		vector<int>::iterator it;
+  		it = find (V_candidate.begin(), V_candidate.end(), H_candidate[i]);
+  		if (it != V_candidate.end())//found element
+  		{
+  			set_long_width(H_candidate[i]);
+  			set_long_height(H_candidate[i]);
+  			break;
+  		}
+  	}
+  }
   
   
   
