@@ -59,6 +59,13 @@ We will decribe how we made it!
 
 ![alt tag](https://raw.githubusercontent.com/fucxy/PDA_SP/master/image/sp6.png)
 
+#How to use?
+
+> 1. Compile it.
+>    make
+> 2. Run it.
+>    ./SP alpha block-file net-file output
+
 ##Reference
 
 >Murata, et. al, “Rectangle-packing based module placement,” ICCAD-95.
