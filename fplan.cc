@@ -58,7 +58,7 @@ void FPlan::read(const char *block_file,const char *net_file,const char* rt_file
   int ta,tb,th,tw;
   filename = rt_file;
   fs.open(block_file,ios::in);
-  if(fs==NULL)
+  if(!fs)
     error("unable to open block file","");
   fs >> t1 >> max_Width >> max_Height;
   fs >> t1 >>ta;
