@@ -27,7 +27,7 @@ sp: $(B_OBJS)
 	$(CXX) $*.cc $(CXXFLAGS)
 
 clean: 
-	rm -f *.o btree *~
+	rm -f *.o SP *~
 
 compact : sp
 	strip $?
